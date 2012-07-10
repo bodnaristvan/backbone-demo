@@ -11,3 +11,7 @@ Resources
 * Mustache: [https://github.com/janl/mustache.js]
 * JSON parser: [https://github.com/douglascrockford/JSON-js]
 * JSDoc toolkit for documentation: [http://code.google.com/p/jsdoc-toolkit/]
+
+JSLint
+------
+You can find a JSLint configuration file under `resources/jslintrc`, TextMate plugin is available at [https://github.com/rondevera/jslintmate/]
