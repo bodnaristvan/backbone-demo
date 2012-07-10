@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Backbone demo</title>
+		<link rel="stylesheet" href="css/demo.css" type="text/css" media="screen" />
+		
+		<!-- Base libraries -->
+		<script type="text/javascript" src="lib/jquery.js"></script>
+		<script type="text/javascript" src="lib/underscore.js"></script>
+		<script type="text/javascript" src="lib/json2.js"></script>
+		<script type="text/javascript" src="lib/backbone.js"></script>
+		<script type="text/javascript" src="lib/mustache.js"></script>
+		
+		<!-- Embedded templates -->
+		<script type="text/jquery-x-template" id="comment-template">
+			<button class="edit">Edit</button>
+			<button class="delete">Delete</button>
+			<button class="reverse">Reverse text</button>
+			<strong>{{author}}</strong><br />
+			{{{text}}}
+		</script>
+		<script type="text/jquery-x-template" id="form-template">
+			<strong>Comment edit</strong>
+			<form>
+				<input type="text" name="author" value="{{author}}" placeholder="Author name" class="author" /><br />
+				<textarea name="text" placeholder"Comment text" class="text">{{text}}</textarea>
+				<button class="submit"> Submit </button>
+				<button class="cancel"> Cancel </button>
+			</form>
+		</script>
+		
+		<!-- Application files -->
+		<script type="text/javascript" src="js/model/commentmodel.js"></script>
+		<script type="text/javascript" src="js/model/commentcollection.js"></script>
+		<script type="text/javascript" src="js/view/commentview.js"></script>
+		<script type="text/javascript" src="js/view/formview.js"></script>
+		<script type="text/javascript" src="js/view/listview.js"></script>
+		<script type="text/javascript" src="js/view/newbuttonview.js"></script>
+		<script type="text/javascript" src="js/view/randombuttonview.js"></script>
+		<script type="text/javascript" src="js/app/app.js"></script>
+	</head>
+	<body>
+		<!-- Application container element -->
+		<div id="application">
+			<a href="#" class="newcomment button">Create new comment</a>
+			<a href="#" class="randomcomment button">Create random comments</a>
+			<ul class="commentlist"></ul>
+		</div>
+		<!-- Application init -->
+		<script type="text/javascript" charset="utf-8">
+			new App({
+				el: $('#application')
+			});
+		</script>
+	</body>
+</html>

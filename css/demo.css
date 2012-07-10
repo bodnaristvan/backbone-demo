@@ -1,0 +1,56 @@
+body {
+	font-family:'Lucida Casual', 'Comic Sans MS';
+	font-size: 16px;
+	background-image: url(bg.jpg);
+	color: green;
+}
+
+#application {
+	padding: 25px;
+}
+
+.button {
+	display: inline-block;
+	background-color: yellow;
+	border: 1px solid green;
+	padding: 5px 10px;
+}
+
+.commentlist {
+	list-style-type: none;
+}
+
+.commentlist li {
+	margin-bottom: 10px;
+}
+
+.comment {
+	background-color: green;
+	border: 1px solid yellow;
+	color: yellow;
+	width: 400px;
+	min-height: 50px;
+}
+
+.comment button {
+	float: right;
+}
+
+.comment .notification {
+	text-align: right;
+	color: #aaa;
+	font-size: 0.8em;
+}
+
+.commentform {
+	background-color: yellow;
+	border: 1px solid green;
+	color: green;
+	padding: 15px;
+	margin: 5px 0px 5px 30px;
+	width: 400px;
+}
+
+.commentform textarea, .commentform input {
+	width: 350px;
+}

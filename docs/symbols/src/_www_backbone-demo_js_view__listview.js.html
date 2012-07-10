@@ -1,0 +1,49 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="COMM">/**
+<span class='line'>  2</span>  * Comment list controller and view
+<span class='line'>  3</span>  * Subscribes to comment collection events and renders a list of comments according
+<span class='line'>  4</span>  *
+<span class='line'>  5</span>  * @class CommentlistView
+<span class='line'>  6</span>  * @extends Backbone.View
+<span class='line'>  7</span>  * @author Bodnar Istvan &lt;istvan@gawker.com>
+<span class='line'>  8</span>  */</span><span class="WHIT">
+<span class='line'>  9</span> </span><span class="COMM">/*global CommentView */</span><span class="WHIT">
+<span class='line'> 10</span> </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">CommentlistView</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">Backbone.View.extend</span><span class="PUNC">(</span><span class="WHIT">
+<span class='line'> 11</span> </span><span class="COMM">/** @lends CommentlistView.prototype */</span><span class="WHIT">
+<span class='line'> 12</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 13</span> </span><span class="WHIT">		</span><span class="COMM">/**
+<span class='line'> 14</span> 		 * Subscribe to collection 'reset' and 'add' events
+<span class='line'> 15</span> 		 */</span><span class="WHIT">
+<span class='line'> 16</span> </span><span class="WHIT">		</span><span class="NAME">initialize</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 17</span> </span><span class="WHIT">			</span><span class="NAME">this.collection.on</span><span class="PUNC">(</span><span class="STRN">'add reset'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">this.render</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 18</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 19</span> </span><span class="WHIT">		
+<span class='line'> 20</span> 		</span><span class="COMM">/**
+<span class='line'> 21</span> 		 * Render comments using CommentView instances for each model in the collection.
+<span class='line'> 22</span> 		 * @returns {CommentlistView} Returns the view instance itself, to allow chaining view commands.
+<span class='line'> 23</span> 		 */</span><span class="WHIT">
+<span class='line'> 24</span> </span><span class="WHIT">		</span><span class="NAME">render</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 25</span> </span><span class="WHIT">			</span><span class="COMM">// first clean up the container</span><span class="WHIT">
+<span class='line'> 26</span> </span><span class="WHIT">			</span><span class="NAME">this.$el.empty</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 27</span> </span><span class="WHIT">			
+<span class='line'> 28</span> 			</span><span class="COMM">// iterate over models in collection and render comments using the CommentView view class</span><span class="WHIT">
+<span class='line'> 29</span> </span><span class="WHIT">			</span><span class="NAME">this.collection.each</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">item</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 30</span> </span><span class="WHIT">				</span><span class="COMM">// create new CommentView instance</span><span class="WHIT">
+<span class='line'> 31</span> </span><span class="WHIT">				</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">commentview</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">CommentView</span><span class="PUNC">(</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 32</span> </span><span class="WHIT">					</span><span class="NAME">model</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">item</span><span class="WHIT">
+<span class='line'> 33</span> </span><span class="WHIT">				</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 34</span> </span><span class="WHIT">				
+<span class='line'> 35</span> 				</span><span class="COMM">// append rendered CommentView instance to CommentlistViews container</span><span class="WHIT">
+<span class='line'> 36</span> </span><span class="WHIT">				</span><span class="NAME">this.$el.append</span><span class="PUNC">(</span><span class="NAME">commentview.render</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">$el</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 37</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 38</span> </span><span class="WHIT">			
+<span class='line'> 39</span> 			</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 40</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 41</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 42</span> </span><span class="PUNC">)</span><span class="PUNC">;</span></pre></body></html>
