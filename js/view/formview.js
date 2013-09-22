@@ -47,8 +47,12 @@ var FormView = Backbone.View.extend(
 		 */
 		render: function () {
 			var template = $('#form-template').text();
+			// check is there is an author already set
+			if (typeof lastAuthor == 'undefined') {
+				lastAuthor = this.model.get('author');
+			}
 			var template_vars = {
-				author: this.model.get('author'),
+				author: lastAuthor,
 				text: this.model.get('text')
 			};
 			this.$el.html(Mustache.to_html(template, template_vars));
@@ -71,6 +75,9 @@ var FormView = Backbone.View.extend(
 					author: author,
 					text: text
 				});
+
+				// set this author for the next creations
+				lastAuthor = author;
 
 				// set an id if model was a new instance
 				// note: this is usually done automatically when items are stored in an API

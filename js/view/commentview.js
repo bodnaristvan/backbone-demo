@@ -30,7 +30,7 @@ var CommentView = Backbone.View.extend(
 		 * The map of delegated event handlers
 		 * @type Object
 		 */
-		 events: {
+		events: {
 			'click .edit': 'edit',
 			'click .delete': 'delete',
 			'click .reverse': 'reverse'
@@ -78,7 +78,7 @@ var CommentView = Backbone.View.extend(
 					return false;
 				}
 			}
-			
+
 			// create new FormView instance to edit the comment
 			var formview = new FormView({model: this.model});
 			
