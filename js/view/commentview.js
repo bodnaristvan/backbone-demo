@@ -68,6 +68,17 @@ var CommentView = Backbone.View.extend(
 		 * @returns {Boolean} Returns false to stop propagation
 		 */
 		edit: function () {
+			//check if there is another instance open
+			var commentBox = $('.commentform');
+			if (commentBox.length > 0) {
+				if (confirm("Warning! Your unsaved changes will be lost.")) {
+					// clean up form
+					commentBox.remove();
+				} else {
+					return false;
+				}
+			}
+			
 			// create new FormView instance to edit the comment
 			var formview = new FormView({model: this.model});
 			

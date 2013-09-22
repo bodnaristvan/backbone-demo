@@ -32,6 +32,17 @@ var NewButtonView = Backbone.View.extend(
 		 * @returns {Boolean} Returns false to stop propagation
 		 */
 		createComment: function () {
+			//check if there is another instance open
+			var commentBox = $('.commentform');
+			if (commentBox.length > 0) {
+				if (confirm("Warning! Your unsaved changes will be lost.")) {
+					// clean up form
+					commentBox.remove();
+				} else {
+					return false;
+				}
+			}
+
 			// create new comment model
 			var comment = new CommentModel({});
 		
