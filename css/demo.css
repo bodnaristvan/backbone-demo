@@ -42,12 +42,30 @@ body {
 	font-size: 0.8em;
 }
 
+.modal-dialog, .backdrop {
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 99;
+	width: 100%;
+	height: 100%;
+}
+
+.backdrop {
+	background: rgba(0, 0, 0, .5);
+}
+
 .commentform {
+	position: absolute;
+	left: 50%;
+	top: 20%;
+	z-index: 100;
 	background-color: yellow;
 	border: 1px solid green;
 	color: green;
 	padding: 15px;
-	margin: 5px 0px 5px 30px;
+	/*margin: 5px 0px 5px 30px;*/
+	margin-left: -200px;
 	width: 400px;
 }
 

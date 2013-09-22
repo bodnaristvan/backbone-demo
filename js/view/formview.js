@@ -21,7 +21,7 @@ var FormView = Backbone.View.extend(
 		 * CSS class name of the container element
 		 * @type String
 		 */
-		className: 'commentform',
+		className: 'modal-dialog',
 		
 		/**
 		 * The map of delegated event handlers
@@ -29,7 +29,8 @@ var FormView = Backbone.View.extend(
 		 */
 		events: {
 			'click .submit': 'submit',
-			'click .cancel': 'cancel'
+			'click .cancel': 'cancel',
+			'click .backdrop': 'cancel'
 		},
 		
 		/**
