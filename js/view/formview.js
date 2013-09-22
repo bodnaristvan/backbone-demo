@@ -21,7 +21,7 @@ var FormView = Backbone.View.extend(
 		 * CSS class name of the container element
 		 * @type String
 		 */
-		className: 'commentform',
+		className: 'modal-dialog',
 		
 		/**
 		 * The map of delegated event handlers
@@ -29,7 +29,8 @@ var FormView = Backbone.View.extend(
 		 */
 		events: {
 			'click .submit': 'submit',
-			'click .cancel': 'cancel'
+			'click .cancel': 'cancel',
+			'click .backdrop': 'cancel'
 		},
 		
 		/**
@@ -46,8 +47,12 @@ var FormView = Backbone.View.extend(
 		 */
 		render: function () {
 			var template = $('#form-template').text();
+			// check is there is an author already set
+			if (typeof lastAuthor == 'undefined') {
+				lastAuthor = this.model.get('author');
+			}
 			var template_vars = {
-				author: this.model.get('author'),
+				author: lastAuthor,
 				text: this.model.get('text')
 			};
 			this.$el.html(Mustache.to_html(template, template_vars));
@@ -60,23 +65,35 @@ var FormView = Backbone.View.extend(
 		 * @returns {Boolean} Returns false to stop propagation
 		 */
 		submit: function () {
-			// set values from form on model
-			this.model.set({
-				author: this.$el.find('.author').val(),
-				text: this.$el.find('.text').val()
-			});
-			
-			// set an id if model was a new instance
-			// note: this is usually done automatically when items are stored in an API
-			if (this.model.isNew()) {
-				this.model.id = Math.floor(Math.random() * 1000);
+			var author = this.$el.find('.author').val();
+			var text = this.$el.find('.text').val();
+
+			// validate form
+			if (author != "" && text != "") {
+				// set values from form on model
+				this.model.set({
+					author: author,
+					text: text
+				});
+
+				// set this author for the next creations
+				lastAuthor = author;
+
+				// set an id if model was a new instance
+				// note: this is usually done automatically when items are stored in an API
+				if (this.model.isNew()) {
+					this.model.id = Math.floor(Math.random() * 1000);
+				}
+				
+				// trigger the 'success' event on form, with the returned model as the only parameter
+				this.trigger('success', this.model);
+				
+				// remove form view from DOM and memory
+				this.remove();
+			} else {
+				alert("Please! Enter fill out all fields.");
 			}
 			
-			// trigger the 'success' event on form, with the returned model as the only parameter
-			this.trigger('success', this.model);
-			
-			// remove form view from DOM and memory
-			this.remove();
 			return false;
 		},
 		
@@ -86,8 +103,11 @@ var FormView = Backbone.View.extend(
 		* @returns {Boolean} Returns false to stop propagation
 		*/
 		cancel: function () {
-			// clean up form
-			this.remove();
+			//check if the user really wants to cancel
+			if (confirm("Warning! Your unsaved changes will be lost.")) {
+				// clean up form
+				this.remove();
+			}
 			return false;
 		},
 		
