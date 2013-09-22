@@ -86,8 +86,11 @@ var FormView = Backbone.View.extend(
 		* @returns {Boolean} Returns false to stop propagation
 		*/
 		cancel: function () {
-			// clean up form
-			this.remove();
+			//check if the user really wants to cancel
+			if (confirm("Warning! Your unsaved changes will be lost.")) {
+				// clean up form
+				this.remove();
+			}
 			return false;
 		},
 		
