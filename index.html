@@ -20,7 +20,6 @@
 			{{{text}}}
 		</script>
 		<script type="text/jquery-x-template" id="form-template">
-			<div class="backdrop"></div>
 			<div class="commentform">
 				<strong>Comment edit</strong>
 				<form>
@@ -30,6 +29,7 @@
 					<button class="cancel"> Cancel </button>
 				</form>
 			</div>
+			<div class="backdrop"></div>
 		</script>
 		
 		<!-- Application files -->
@@ -49,17 +49,7 @@
 			<a href="#" class="randomcomment button">Create random comments</a>
 			<ul class="commentlist"></ul>
 		</div>
-		<!-- <div class="modal-dialog">
-			<div class="commentform">
-				<strong>Comment edit</strong>
-				<form>
-					<input type="text" name="author" value="{{author}}" placeholder="Author name" class="author" /><br />
-					<textarea name="text" placeholder"Comment text" class="text">{{text}}</textarea>
-					<button class="submit"> Submit </button>
-					<button class="cancel"> Cancel </button>
-				</form>
-			</div>
-		</div> -->
+
 		<!-- Application init -->
 		<script type="text/javascript" charset="utf-8">
 			new App({

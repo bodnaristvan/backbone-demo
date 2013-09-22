@@ -61,23 +61,32 @@ var FormView = Backbone.View.extend(
 		 * @returns {Boolean} Returns false to stop propagation
 		 */
 		submit: function () {
-			// set values from form on model
-			this.model.set({
-				author: this.$el.find('.author').val(),
-				text: this.$el.find('.text').val()
-			});
-			
-			// set an id if model was a new instance
-			// note: this is usually done automatically when items are stored in an API
-			if (this.model.isNew()) {
-				this.model.id = Math.floor(Math.random() * 1000);
+			var author = this.$el.find('.author').val();
+			var text = this.$el.find('.text').val();
+
+			// validate form
+			if (author != "" && text != "") {
+				// set values from form on model
+				this.model.set({
+					author: author,
+					text: text
+				});
+
+				// set an id if model was a new instance
+				// note: this is usually done automatically when items are stored in an API
+				if (this.model.isNew()) {
+					this.model.id = Math.floor(Math.random() * 1000);
+				}
+				
+				// trigger the 'success' event on form, with the returned model as the only parameter
+				this.trigger('success', this.model);
+				
+				// remove form view from DOM and memory
+				this.remove();
+			} else {
+				alert("Please! Enter fill out all fields.");
 			}
 			
-			// trigger the 'success' event on form, with the returned model as the only parameter
-			this.trigger('success', this.model);
-			
-			// remove form view from DOM and memory
-			this.remove();
 			return false;
 		},
 		
