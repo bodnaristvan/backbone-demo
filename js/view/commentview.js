@@ -120,6 +120,9 @@ var CommentView = Backbone.View.extend(
 			setTimeout(function () {
 				$notification.remove();
 			}, 5000);
+			window.onbeforeunload = function() {
+		    	if (not_saved) if (confirm('Changes will not be saved')) return true;
+		    return false;
 		},
 		
 		/**
