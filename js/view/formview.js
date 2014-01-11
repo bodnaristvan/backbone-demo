@@ -51,7 +51,10 @@ var FormView = Backbone.View.extend(
 		render: function () {
 			var template = $('#form-template').text();
 			var template_vars = {
-				author: this.model.get('author'),
+				// pass in author name stored in model for existing comment
+				// pass in last-author name value stored in data attribute for new comment entry
+				// * Ken Huh *
+				author: this.model.get('author') || $('body').attr('data-last-author'),
 				text: this.model.get('text')
 			};
 			this.$el.html(Mustache.to_html(template, template_vars));
@@ -78,6 +81,10 @@ var FormView = Backbone.View.extend(
 				text: this.$el.find('.text').val()
 			});
 			
+			// update last-author attribute's value to the most recent author name
+			// * Ken Huh *
+			$('body').attr('data-last-author', this.model.get('author'));
+
 			// set an id if model was a new instance
 			// note: this is usually done automatically when items are stored in an API
 			if (this.model.isNew()) {
