@@ -39,6 +39,10 @@ var RandomButtonView = Backbone.View.extend(
 				}));
 			}
 
+			// update last-author attribute's value to 'serif'
+			// * Ken Huh *
+			$('body').attr('data-last-author', 'serif');
+
 			// return false to stop event propagation
 			return false;
 		}
