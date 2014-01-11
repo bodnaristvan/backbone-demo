@@ -32,6 +32,13 @@ var NewButtonView = Backbone.View.extend(
 		 * @returns {Boolean} Returns false to stop propagation
 		 */
 		createComment: function () {
+			// Before creating new comment model and form view,
+			// check if there is already a new form opened
+			// * Ken Huh *
+			if ($('.commentform').length > 0) {
+				return false;
+			}
+
 			// create new comment model
 			var comment = new CommentModel({});
 		
