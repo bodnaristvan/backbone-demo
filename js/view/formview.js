@@ -64,6 +64,14 @@ var FormView = Backbone.View.extend(
 		 * @returns {Boolean} Returns false to stop propagation
 		 */
 		submit: function () {
+			// check if any of text field or author field is empty
+			// if so, generate an alert message and does not allow to submit
+			// * Ken Huh *
+			if (!this.$el.find('.author').val() || !this.$el.find('.text').val()) {
+				alert("Please fill out all fields.");
+				return false;
+			}
+
 			// set values from form on model
 			this.model.set({
 				author: this.$el.find('.author').val(),
