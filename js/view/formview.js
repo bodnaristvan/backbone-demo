@@ -86,8 +86,32 @@ var FormView = Backbone.View.extend(
 		* @returns {Boolean} Returns false to stop propagation
 		*/
 		cancel: function () {
-			// clean up form
-			this.remove();
+			// evaluate new text value at the moment when user clicks on cancel button
+			// * Ken Huh *
+			var newTextValue = this.$el.find('.text').val();
+
+			// if this is a new entry and user did not enter any text,
+			// clean up form without asking for confirmation
+			// * Ken Huh *
+			if (newTextValue === '' && !this.model.get('text')) {
+			  // clean up form
+			  this.remove();
+
+			// if this is not a new entry and user did not make any change
+			// clean up form without asking for confirmation
+			// * Ken Huh *
+			} else if (newTextValue === this.model.get('text')) {
+			  // clean up form
+			  this.remove();
+
+			// compare new text value to old value which was previously stored in model
+			// if there is any difference, ask for confirmation
+			// * Ken Huh *
+			} else if (newTextValue !== this.model.get('text') && confirm("Do you want to discard changes?")) {
+			  // clean up form
+			  this.remove();
+			}
+
 			return false;
 		},
 		
