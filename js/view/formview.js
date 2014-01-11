@@ -29,7 +29,11 @@ var FormView = Backbone.View.extend(
 		 */
 		events: {
 			'click .submit': 'submit',
-			'click .cancel': 'cancel'
+			'click .cancel': 'cancel',
+			// Add a click event to modal background
+			// When user clicks anywhere other than modal window, it will close the comment form.
+			// * Ken Huh *
+			'click #modal-bg': 'cancel'
 		},
 		
 		/**
