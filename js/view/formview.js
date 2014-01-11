@@ -29,7 +29,11 @@ var FormView = Backbone.View.extend(
 		 */
 		events: {
 			'click .submit': 'submit',
-			'click .cancel': 'cancel'
+			'click .cancel': 'cancel',
+			// Add a click event to modal background
+			// When user clicks anywhere other than modal window, it will close the comment form.
+			// * Ken Huh *
+			'click #modal-bg': 'cancel'
 		},
 		
 		/**
@@ -47,7 +51,10 @@ var FormView = Backbone.View.extend(
 		render: function () {
 			var template = $('#form-template').text();
 			var template_vars = {
-				author: this.model.get('author'),
+				// pass in author name stored in model for existing comment
+				// pass in last-author name value stored in data attribute for new comment entry
+				// * Ken Huh *
+				author: this.model.get('author') || $('body').attr('data-last-author'),
 				text: this.model.get('text')
 			};
 			this.$el.html(Mustache.to_html(template, template_vars));
@@ -60,12 +67,24 @@ var FormView = Backbone.View.extend(
 		 * @returns {Boolean} Returns false to stop propagation
 		 */
 		submit: function () {
+			// check if any of text field or author field is empty
+			// if so, generate an alert message and does not allow to submit
+			// * Ken Huh *
+			if (!this.$el.find('.author').val() || !this.$el.find('.text').val()) {
+				alert("Please fill out all fields.");
+				return false;
+			}
+
 			// set values from form on model
 			this.model.set({
 				author: this.$el.find('.author').val(),
 				text: this.$el.find('.text').val()
 			});
 			
+			// update last-author attribute's value to the most recent author name
+			// * Ken Huh *
+			$('body').attr('data-last-author', this.model.get('author'));
+
 			// set an id if model was a new instance
 			// note: this is usually done automatically when items are stored in an API
 			if (this.model.isNew()) {
@@ -86,8 +105,32 @@ var FormView = Backbone.View.extend(
 		* @returns {Boolean} Returns false to stop propagation
 		*/
 		cancel: function () {
-			// clean up form
-			this.remove();
+			// evaluate new text value at the moment when user clicks on cancel button
+			// * Ken Huh *
+			var newTextValue = this.$el.find('.text').val();
+
+			// if this is a new entry and user did not enter any text,
+			// clean up form without asking for confirmation
+			// * Ken Huh *
+			if (newTextValue === '' && !this.model.get('text')) {
+			  // clean up form
+			  this.remove();
+
+			// if this is not a new entry and user did not make any change
+			// clean up form without asking for confirmation
+			// * Ken Huh *
+			} else if (newTextValue === this.model.get('text')) {
+			  // clean up form
+			  this.remove();
+
+			// compare new text value to old value which was previously stored in model
+			// if there is any difference, ask for confirmation
+			// * Ken Huh *
+			} else if (newTextValue !== this.model.get('text') && confirm("Do you want to discard changes?")) {
+			  // clean up form
+			  this.remove();
+			}
+
 			return false;
 		},
 		

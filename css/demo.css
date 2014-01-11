@@ -42,15 +42,39 @@ body {
 	font-size: 0.8em;
 }
 
+/**
+* Convert comment form into a modal window
+* Ken Huh *
+**/
 .commentform {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+}
+
+#modal-bg {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	opacity: 0.7;
+	background-color: #fff;
+	z-index: -1;
+}
+
+#modal {
+	display: block;
+	margin: 20% auto;
 	background-color: yellow;
 	border: 1px solid green;
 	color: green;
 	padding: 15px;
-	margin: 5px 0px 5px 30px;
 	width: 400px;
 }
 
-.commentform textarea, .commentform input {
+#modal textarea, #modal input {
 	width: 350px;
 }

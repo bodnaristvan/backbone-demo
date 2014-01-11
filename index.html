@@ -19,14 +19,21 @@
 			<strong>{{author}}</strong><br />
 			{{{text}}}
 		</script>
+		<!--
+			Add a modal background and modal dialog window
+			* Ken Huh *
+		-->
 		<script type="text/jquery-x-template" id="form-template">
-			<strong>Comment edit</strong>
-			<form>
-				<input type="text" name="author" value="{{author}}" placeholder="Author name" class="author" /><br />
-				<textarea name="text" placeholder"Comment text" class="text">{{text}}</textarea>
-				<button class="submit"> Submit </button>
-				<button class="cancel"> Cancel </button>
-			</form>
+			<div id="modal-bg"></div>
+			<dialog id="modal">
+				<strong>Comment edit</strong>
+				<form>
+					<input type="text" name="author" value="{{author}}" placeholder="Author name" class="author" /><br />
+					<textarea name="text" placeholder"Comment text" class="text">{{text}}</textarea>
+					<button class="submit"> Submit </button>
+					<button class="cancel"> Cancel </button>
+				</form>
+			</dialog>
 		</script>
 		
 		<!-- Application files -->
